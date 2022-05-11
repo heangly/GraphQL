@@ -1,10 +1,11 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 
+import Nav from './components/Nav'
 import HomeScreen from './screens/HomeScreen'
 import LoginScreen from './screens/LoginScreen'
 import NotFoundScreen from './screens/NotFoundScreen'
 import RegisterScreen from './screens/RegisterScreen'
-import Nav from './components/Nav'
+import CreatePostScreen from './screens/CreatePostScreen'
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
           <Route path='/' element={<HomeScreen />} />
           <Route path='/login' element={<LoginScreen />} />
           <Route path='/register' element={<RegisterScreen />} />
+          <Route path='/create-post' element={<CreatePostScreen />} />
           <Route path='*' element={<NotFoundScreen />} />
         </Routes>
       </div>

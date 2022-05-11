@@ -1,6 +1,9 @@
 import { gql, useMutation } from '@apollo/client'
 import { useState } from 'react'
+import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
+
+import { storeUser } from '../redux/slices/auth'
 
 const REGISTER_USER = gql`
   mutation register(
@@ -38,6 +41,7 @@ const RegisterScreen = () => {
   const { username, email, password, confirmPassword } = formData
 
   const navigate = useNavigate()
+  const dispatch = useDispatch()
 
   const onChange = (e) => {
     setFormData((preState) => ({
@@ -48,6 +52,8 @@ const RegisterScreen = () => {
 
   const [registerUser, { loading }] = useMutation(REGISTER_USER, {
     update(proxy, result) {
+      const { username, token } = result.data.register
+      dispatch(storeUser({ username, token }))
       navigate('/')
     },
 

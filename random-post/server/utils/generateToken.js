@@ -8,6 +8,6 @@ module.exports = (user) => {
       username: user.username
     },
     'abc1234',
-    { expiresIn: '1h' }
+    { expiresIn: '3h' }
   )
 }

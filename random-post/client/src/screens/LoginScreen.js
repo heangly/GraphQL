@@ -1,5 +1,5 @@
 import { gql, useMutation } from '@apollo/client'
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { storeUser } from '../redux/slices/auth'

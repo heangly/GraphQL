@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { useQuery, gql } from '@apollo/client'
 import PostCard from '../components/PostCard'
 import { useSelector } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 const FETCH_POSTS_QUERY = gql`
   query {
@@ -17,7 +17,7 @@ const FETCH_POSTS_QUERY = gql`
 
 const HomeScreen = () => {
   const { loading, data } = useQuery(FETCH_POSTS_QUERY)
-  const { token } = useSelector((state) => state.auth.user)
+  const { username, token } = useSelector((state) => state.auth.user)
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -25,8 +25,19 @@ const HomeScreen = () => {
   }, [token, navigate])
 
   return (
-    <div className='container text-center'>
-      <h4>All Posts</h4>
+    <div className='container'>
+      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+        <h6 className='alert alert-success mb-4'>Hello, {username}!</h6>
+        <Link
+          to='/create-post'
+          className='btn btn-info'
+          style={{ alignSelf: 'baseline', padding: '10px 30px' }}
+        >
+          Create Post
+        </Link>
+      </div>
+
+      <h3 className='text-center'>All Posts</h3>
       <div className='row mt-3'>
         <div className='container'>
           <div className='col-12'>
