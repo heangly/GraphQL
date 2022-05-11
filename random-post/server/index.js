@@ -6,7 +6,8 @@ const typeDefs = require('./graphql/typeDefs')
 
 const server = new ApolloServer({
   typeDefs,
-  resolvers
+  resolvers,
+  context: ({ req }) => ({ req })
 })
 
 connectDB()
