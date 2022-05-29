@@ -1,27 +1,36 @@
-import React from 'react'
+import React, { Component } from 'react'
 import gql from 'graphql-tag'
 import { graphql } from 'react-apollo'
+import { Link } from 'react-router-dom'
 
 import Song from './Song'
 
-const SongList = (props) => {
-  const renderSongs = () => {
-    if (props.data.loading) {
+class SongList extends Component {
+  constructor() {
+    super()
+  }
+
+  renderSongs() {
+    if (this.props.data.loading) {
       return <p>Loading...</p>
     }
 
-    return props.data.songs.map((song) => (
+    return this.props.data.songs.map((song) => (
       <Song key={song.id} title={song.title} />
     ))
   }
 
-  return (
-    <div>
-      <h1>Lyrical</h1>
-      <ul className='collection'>{renderSongs()}</ul>
-      <button>Create song</button>
-    </div>
-  )
+  render() {
+    return (
+      <div>
+        <h1>Lyrical</h1>
+        <ul className='collection'>{this.renderSongs.call(this)}</ul>
+        <Link className='btn-floating btn-large red right' to='/songs/new'>
+          <i className='material-icons'>add</i>
+        </Link>
+      </div>
+    )
+  }
 }
 
 const query = gql`
