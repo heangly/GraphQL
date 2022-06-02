@@ -1,0 +1,22 @@
+.collection span {
+  cursor: pointer;
+}
+
+.collection-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.collection-item i {
+  cursor: pointer;
+}
+
+.material-icons {
+  margin-right: 10px;
+}
+
+.vote-box {
+  display: flex;
+  align-items: center;
+}
