@@ -20,8 +20,14 @@ mongoose.Promise = global.Promise
 
 // Connect to the mongoDB instance and log a message
 // on success or failure
-mongoose.connect(MONGO_URI)
-mongoose.connection
+mongoose.connect(MONGO_URI, {
+  authSource: 'admin',
+  retryWrites: true,
+  dbName: 'graphql',
+  useCreateIndex: true,
+  useNewUrlParser: true
+})
+const db = mongoose.connection
   .once('open', () => console.log('Connected to MongoLab instance.'))
   .on('error', (error) => console.log('Error connecting to MongoLab:', error))
 
@@ -30,13 +36,14 @@ mongoose.connection
 // the cookie and modifies the request object to indicate which user made the request
 // The cookie itself only contains the id of a session; more data about the session
 // is stored inside of MongoDB.
+
 app.use(
   session({
     resave: true,
     saveUninitialized: true,
     secret: 'aaabbbccc',
     store: new MongoStore({
-      url: MONGO_URI,
+      mongooseConnection: db,
       autoReconnect: true
     })
   })
