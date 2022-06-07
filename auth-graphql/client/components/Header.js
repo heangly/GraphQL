@@ -6,8 +6,8 @@ import query from '../queries/CurrentUser'
 import mutation from '../mutations/Logout'
 
 class Header extends Component {
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
   }
 
   onLogoutClick() {
