@@ -1,12 +1,12 @@
 const { GraphQLID, GraphQLList } = require('graphql')
-const { clients } = require('../../sampleData')
 const ClientType = require('./type')
+const Client = require('../../models/Client')
 
 module.exports = {
   clients: {
     type: new GraphQLList(ClientType),
     resolve() {
-      return clients
+      return Client.find()
     }
   },
 
@@ -14,7 +14,7 @@ module.exports = {
     type: ClientType,
     args: { id: { type: GraphQLID } },
     resolve(parentValue, { id }) {
-      return clients.find((client) => client.id === id)
+      return Client.findById(id)
     }
   }
 }

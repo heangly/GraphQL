@@ -1,13 +1,13 @@
 const { GraphQLID, GraphQLList } = require('graphql')
 
-const { projects } = require('../../sampleData')
 const ProjectType = require('./type')
+const Project = require('../../models/Project')
 
 module.exports = {
   projects: {
     type: new GraphQLList(ProjectType),
     resolve() {
-      return projects
+      return Project.find()
     }
   },
 
@@ -15,7 +15,7 @@ module.exports = {
     type: ProjectType,
     args: { id: { type: GraphQLID } },
     resolve(parentValue, { id }) {
-      return projects.find((project) => project.id === id)
+      return Project.findById(id)
     }
   }
 }
