@@ -3,6 +3,7 @@ import { FaTrash } from 'react-icons/fa'
 
 import { DELETE_CLIENT } from '../../graphql/mutations/clientMutations'
 import { GET_CLIENTS } from '../../graphql/queries/clientQueries'
+import { GET_PROJECTS } from '../../graphql/queries/projectQueries'
 
 const ClientRow = ({ client }) => {
   const [deleteClient] = useMutation(DELETE_CLIENT, {
@@ -10,21 +11,21 @@ const ClientRow = ({ client }) => {
     variables: { id: client.id },
 
     // #Method 1 , refetching query without any cache
-    // refetchQueries: [{ query: GET_CLIENTS }],
+    refetchQueries: [{ query: GET_CLIENTS }, { query: GET_PROJECTS }]
 
     // #Method 2, update query with use of catche (better performance)
-    update(cache, { data: { deleteClient } }) {
-      const { clients } = cache.readQuery({
-        query: GET_CLIENTS
-      })
+    // update(cache, { data: { deleteClient } }) {
+    //   const { clients } = cache.readQuery({
+    //     query: GET_CLIENTS
+    //   })
 
-      cache.writeQuery({
-        query: GET_CLIENTS,
-        data: {
-          clients: clients.filter((client) => client.id !== deleteClient.id)
-        }
-      })
-    }
+    //   cache.writeQuery({
+    //     query: GET_CLIENTS,
+    //     data: {
+    //       clients: clients.filter((client) => client.id !== deleteClient.id)
+    //     }
+    //   })
+    // }
   })
 
   return (

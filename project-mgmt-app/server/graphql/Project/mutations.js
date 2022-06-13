@@ -50,26 +50,25 @@ module.exports = {
         type: GraphQLNonNull(GraphQLID)
       },
       name: { type: GraphQLString },
-      description: { type: GraphQLString },
-      status: {
-        type: new GraphQLEnumType({
-          name: 'ProjectStatusUpdate',
-          values: {
-            new: { value: 'Not Started' },
-            progress: { value: 'In Progress' },
-            completed: { value: 'Completed' }
-          }
-        })
-      }
+      description: { type: GraphQLString }
+      // status: {
+      //   type: new GraphQLEnumType({
+      //     name: 'ProjectStatusUpdate',
+      //     values: {
+      //       new: { value: 'Not Started' },
+      //       progress: { value: 'In Progress' },
+      //       completed: { value: 'Completed' }
+      //     }
+      //   })
+      // }
     },
-    resolve(parent, { id, name, description, status }) {
+    resolve(parent, { id, name, description }) {
       return Project.findByIdAndUpdate(
         id,
         {
           $set: {
             name,
-            description,
-            status
+            description
           }
         },
         { new: true }

@@ -2,6 +2,7 @@ const { GraphQLString, GraphQLNonNull, GraphQLID } = require('graphql')
 
 const ClientType = require('./type')
 const Client = require('../../models/Client')
+const Project = require('../../models/Project')
 
 module.exports = {
   addClient: {
@@ -23,6 +24,11 @@ module.exports = {
       id: { type: GraphQLNonNull(GraphQLID) }
     },
     resolve(parent, { id }) {
+      Project.find({ clientId: id }).then((projects) => {
+        projects.forEach((project) => {
+          project.remove()
+        })
+      })
       return Client.findByIdAndDelete(id)
     }
   }
